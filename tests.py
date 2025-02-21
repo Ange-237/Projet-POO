@@ -10,7 +10,7 @@ def selection(x):
         print(f"{i + 1}: {p}") 
  
     while len(equipe) < 2: 
-        choix = input("Choisissez une creature (1-3): ")
+        choix = input("Choisissez un hero (1-3): ")
 
         if choix.isdigit() and 1 <= int(choix) <= 3: 
             choix = int(choix) - 1 

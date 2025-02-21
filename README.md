@@ -1,5 +1,6 @@
 # Projet-POO:
-Notre projet porte sur la creation d'un jeu intitulé Donjon et dranguons D&d, on l'a ecrit en language python. Pour qu'il fonctionne il suffit juste de lancer dans un terminale et suivre les indications. Tous le sfichier ont été liés entre eux donc il y'a rien de compliquer a faire juste lancer le code 
+
+Notre projet porte sur la creation d'un jeu intitulé Donjon et dranguons D&d, on l'a ecrit en language python. Pour qu'il fonctionne il suffit juste de lancer dans un terminale et suivre les indications. Tous les fichiers ont été liés entre eux donc il y'a rien de compliquer a faire juste lancer le code.
 
 
 

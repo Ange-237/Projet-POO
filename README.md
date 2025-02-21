@@ -3,7 +3,7 @@
 Notre projet porte sur la creation d'un jeu intitulé Donjon et dranguons D&d, ce jeux est un jeux de rôle rpg qui ce joue en groupe ou tout seule dans notre cas il y'aura qu'un seul joueur il a été realiser en language python. Pour qu'il fonctionne il suffit juste de lancer dans un terminale et suivre les indications. Tous les fichiers ont été liés entre eux donc il y'a rien de compliquer a faire juste lancer le code qui est dans le fichier **projet_poo.py** .
 
 **#buff et debuff :**
-il n'est pas garantie que le buff ou debuff marche sur l'enemie 
+il n'est pas garantie que le debuff marche sur l'enemie. le buff marhce il marche sur sois même
 
 **#Ameloration :**
 - systeme de multijoueur
@@ -11,6 +11,9 @@ il n'est pas garantie que le buff ou debuff marche sur l'enemie
 - un inventaire pour chauqe personnage
 - sauvegarde des scores des parties 
 
+**#Installation requis :**
+ pour les couleurs dans le terminale il faut installer avec la commande pip install ansicolors pour avoir acces a la librairie.
+ pour utiliser la focntion color, il suffit de faire color("texte","couleur")
 
 **#Fonctionnalité suplementaire :**
 

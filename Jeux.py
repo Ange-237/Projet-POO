@@ -92,6 +92,7 @@ def choix_armes():
             choix = int(input("Entrez le numéro de l'arme : "))
             if 1 <= choix <= len(listam):  # Vérifie que le choix est valide
                 print(f"Vous avez choisi : {listam[choix - 1]}")
+                listam.pop(choix - 1)
                 break
             else:
                 print("Veuillez entrer un numéro valide.")
@@ -113,6 +114,7 @@ def liste_cible():
             choix = int(input("Entrez le numéro de l'arme : "))
             if 1 <= choix <= len(listcib):  # Vérifie que le choix est valide
                 print(f"Vous avez choisi : {listcib[choix - 1]}")
+                listcib.pop(choix - 1)
                 break
             else:
                 print("Veuillez entrer un numéro valide.")

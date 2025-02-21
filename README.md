@@ -15,3 +15,4 @@ il suffit d'ajouter 3 Monsters dans la liste finale avec le même nombre de de l
 
 #Liens :
 https://github.com/Ange-237/Projet-POO/edit/main/README.md
+https://trello.com/b/6gXKDhT0/projet-poo

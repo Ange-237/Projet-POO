@@ -1,6 +1,6 @@
 **# Projet-POO: Realisé par Ivonne, Hanine et Saidou**
 
-Notre projet porte sur la creation d'un jeu intitulé Donjon et dranguons D&d, ce jeux est un jeux de rôle rpg qui ce joue en groupe ou tout seule dans notre cas il y'aura qu'un seul joueur, il ce fait au tour par tour. Il a été realiser en language python. Pour qu'il fonctionne il suffit juste de lancer dans un terminale et suivre les indications. Tous les fichiers ont été liés entre eux donc il y'a rien de compliquer a faire juste lancer le code qui est dans le fichier **projet_poo.py** .
+Notre projet porte sur la creation d'un jeu intitulé Donjon et dranguons D&d, ce jeux est un jeux de rôle rpg qui ce joue en groupe ou tout seule dans notre cas il y'aura qu'un seul joueur, il ce fait au tour par tour. Il a été realiser en language python. Pour qu'il fonctionne il suffit juste de lancer dans un terminale et suivre les indications. Tous les fichiers ont été liés entre eux donc il y'a rien de compliquer a faire juste lancer le code qui est dans le fichier **projet_poo_FINAL.py** .
 
 **#Installation requis :**
  pour les couleurs dans le terminale il faut installer avec la commande pip install ansicolors pour avoir acces a la librairie.

@@ -1,6 +1,7 @@
 from random import randint
 import time
 from tests import *
+
 #import keyboard  # on importe le module keyboard
 
 # Variables a definir :
@@ -11,12 +12,18 @@ armes = {"claymore", "katana", "THESE HANDS", "special ability"}
 # Fonction pour simuler un lancer de de
 def de(n):
     return randint(1, n)
+def trier(personnages):
+    for personnage in personnages:
+        personnage.de = de(20)
+        print(f"{personnage.nom} a lancé un {personnage.de}")
+    personnages.sort(key=lambda x: x.de, reverse=True)
+    return personnages
 
 def afficher_les_messages_lentement(message, vitesse=0.01):
     for char in message:
         print(char, end="", flush=True)
-        time.sleep(vitesse)
-
+        time.sleep(vitesse) 
+# le debut du code combat et..j'ai oublie xD  ta oublier quoi ??
 def intro():
     afficher_les_messages_lentement("Bienvenue dans D&D, appuyez sur 'Entree' pour continuer.")
     yippie = input()
@@ -29,13 +36,14 @@ def intro():
     combat()
 
 class Creature:
-    def __init__(self, nom, desc, typedegats, degats,pv, etat):
+    def __init__(self, nom, desc, typedegats, degats,pv, etat,de):
         self.nom = nom
         self.desc = desc
         self.typedegats = typedegats
         self.degats = degats
         self.pv = pv
         self.etat = etat
+        self.de = de
     def isdead(self) :
         return self.pv <= 0
     def attaque(self, cible):
@@ -55,8 +63,8 @@ class Creature:
 
 
 class Personnage(Creature):
-    def __init__(self, nom, desc, pv,typedegats, degats, etat, arme):
-        super().__init__(nom, desc, pv, typedegats, degats, etat)
+    def __init__(self, nom, desc, pv,typedegats, degats, etat, arme,de):
+        super().__init__(nom, desc, pv, typedegats, degats, etat,de)
         self.arme = arme
 
     def __str__(self):
@@ -73,6 +81,7 @@ class Personnage(Creature):
         cible.pv -= 60
     def bankai(self,cible) :
         print("Bankai !")
+        
         print(f"{self.nom} utilise sa capacite speciale sur {cible.nom}, bro is BEYOND cooked.")
         print("multiple slashes later...")
         cible.pv -= 100
@@ -81,8 +90,8 @@ class Personnage(Creature):
 
 
 class Monstre(Creature):
-    def __init__(self, nom, description, pv, typedegats,defense, degats, etat,resistance):
-        super().__init__(nom, description, pv,typedegats, degats,etat)
+    def __init__(self, nom, description, pv, typedegats,defense, degats, etat,resistance,de):
+        super().__init__(nom, description, pv,typedegats, degats,etat,de)
         self.resistance = resistance
         self.defense = defense
     def __str__(self):
@@ -104,71 +113,120 @@ class Monstre(Creature):
 
 def combat():
     global hero, monstre
-    listep = [
-        Personnage("Gojo Satoru", "top tier sorcerer", "Magique",30, 150, "", "THESE HANDS"),
-        Personnage("Dazai Osamu", "a suicidal genius", "Magique",30, 150, "", "special ability"),
-        Personnage("Kurosaki Ichigo", "Un Shinigami", "Percant", 20,150, "", "katana")
-    ]
-    listem =[ Monstre("Goblin", "ugly fugly creature", "Contendant",5,10,100,  "", "Feu"),
-          Monstre("Ruin Guard", "Automated robot built ", "Percant",20,10,100,  "", "rien"),
-          Monstre("Dabi", "Supervillain with high flame power", "Feu",25,5,100,  "", "Feu")
-    ]
-    listep = selection(listep)
-    listem = selection(listem)
-    while True:
-        
-        for i, p in enumerate(listep):
-            print(f"{i + 1}: {p}")
-        while True:
-            
-            choix = input("Choisissez un personnage (1-3): ").strip()
-            if choix.isdigit() and 1 <= int(choix) <= 3:
-                choix = int(choix) - 1
-                break
-            else:
-                print("Veuillez entrer un nombre entre 1 et 3.")
-        hero = listep[choix]
 
-        for i, p in enumerate(listem):
-            print(f"{i + 1}: {p}")
-        while True:
-            choixx = input("Choisissez monstre (1-3): ").strip()
-            if choixx.isdigit() and 1 <= int(choixx) <= 3:
-                choixx = int(choixx) - 1
-                break
-            else:
-                print("Veuillez entrer un nombre entre 1 et 3.")
-        monstre = listem[choixx]
-        methodehero = input(f"{hero.nom}! Choisis ta methode d'attaque : 1-Normal 2-Special : ")
-        if str(methodehero) =='1':
-            hero.attaque(monstre)
-            print("")
-        elif str(methodehero) =='2':
-            if hero.nom == "Gojo Satoru": 
-                hero.htpurple(monstre)
-            elif hero.nom == "Dazai Osamu": 
-                hero.volpv(monstre)
-            else :
-                hero.bankai(monstre)
-        print(f"{hero.nom} a {hero.pv} PV ! et {monstre.nom} a {monstre.pv} PV !")
-        methodemon = input(f"{monstre.nom}! Choisis ta methode d'attaque : 1-Normal 2-Special (ONLY DABI) : ")
-        if methodemon == '1':
-            monstre.atkmonstre(hero)
-        elif methodemon == '2' and monstre.nom == "Dabi":
-            monstre.dabiflame(hero)
-        
-        else : 
-            print("choix invalide, l'attaque special est que pour Dabi.")
-            methodemon = input(f"{monstre.nom}! Choisis ta methode d'attaque : 1-Normal 2-Special (ONLY DABI) : ")  
-        print(f"{monstre.nom} a {monstre.pv} PV ! et {hero.nom} a {hero.pv} PV !")  
-        
-        if Creature.isdead(listem[0]) and Creature.isdead(listem[1]) :
-            print("F\u00e9licitations, vous avez gagne!")
-            return
-        
-        if Creature.isdead(listep[0]) and Creature.isdead(listep[1]) :
-            print("Defaite... Le monstre vous a vaincu.")
-            return
+    listep = [
+        Personnage("Gojo Satoru", "top tier sorcerer", "Magique",30, 150, "", "THESE HANDS",0),
+        Personnage("Dazai Osamu", "a suicidal genius", "Magique",30, 150, "", "special ability",0),
+        Personnage("Kurosaki Ichigo", "Un Shinigami", "Percant", 20,150, "", "katana",0)
+    ]
+    listem = [
+        Monstre("Goblin", "ugly fugly creature", "Contendant",5,10,100,  "", "Feu",0),
+        Monstre("Ruin Guard", "Automated robot built ", "Percant",20,10,100,  "", "rien",0),
+        Monstre("Dabi", "Supervillain with high flame power", "Feu",25,5,100,  "", "Feu",0)
+    ]
+
+    listep = selection(listep)  
+    listem = selection(listem)  
+
+    # Sélection du héros
+    while True:
+        for i, p in enumerate(listep):
+            print(f"{i + 1}: {p.nom}")
+        choix = input("Choisissez un personnage (1-3): ")
+        if choix.isdigit() and 1 <= int(choix) <= len(listep):
+            hero = listep[int(choix) - 1]
+            break
+        else:
+            print("Choix invalide ! Veuillez entrer un nombre entre 1 et 3.")
+
+    # Sélection du monstre
+    while True:
+        for i, m in enumerate(listem):
+            print(f"{i + 1}: {m.nom}")
+        choixx = input("Choisissez un monstre (1-3): ")
+        if choixx.isdigit() and 1 <= int(choixx) <= len(listem):
+            monstre = listem[int(choixx) - 1]
+            break
+        else:
+            print("Choix invalide ! Veuillez entrer un nombre entre 1 et 3.")
+
+    # Création et tri de la liste des combattants
+    listefinale = listep + listem
+    listefinale = trier(listefinale)
+
+    print("\n FIGHT! :")
+    for combattant in listefinale:
+        print(f"- {combattant.nom} ({combattant.pv} PV)")
+
+    # Boucle principale du combat
+    while True:
+        for combattant in listefinale:
+            if combattant.isdead():
+                continue  
+
+            print(f"\n C'est au tour de {combattant.nom} d'attaquer !")
+
+            # Déterminer la cible (si c'est un personnage, attaque un monstre, et vice versa)
+            cibles = listem if isinstance(combattant, Personnage) else listep
+            cibles = [c for c in cibles if not c.isdead()]  
+
+            if not cibles:  
+                continue
+            while True:
+                a = input("choisissez votre cible : 1 ou 2 :")
+                if a == '1' and not cibles[0].isdead():
+                    cible = cibles[0]
+                    break
+                elif a == '2' and not cibles[1].isdead():
+                    cible = cibles[1]
+                    break
+                else: 
+                    print("choix invalide, veuillez choisir 1 ou 2.")
+                   
+                
+            
+            if isinstance(combattant, Personnage):
+                while True:
+                    methode = input(f"{combattant.nom}! Choisis ta méthode d'attaque : 1-Normal 2-Spécial : ")
+                    if methode == '1':
+                        combattant.attaque(cible)
+                        break
+                    elif methode == '2':
+                        if combattant.nom == "Gojo Satoru": 
+                            combattant.htpurple(cible)
+                        elif combattant.nom == "Dazai Osamu": 
+                            combattant.volpv(cible)
+                        else:
+                            combattant.bankai(cible)
+                        break
+                    else:
+                        print("Choix invalide ! Veuillez entrer 1 ou 2.")
+
+            
+            elif isinstance(combattant, Monstre):
+                while True:
+                    methode = input(f"{combattant.nom}! Choisis ta méthode d'attaque : 1-Normal 2-Spécial (ONLY DABI) : ")
+                    if methode == '1':
+                        combattant.atkmonstre(cible)
+                        break
+                    elif methode == '2' and combattant.nom == "Dabi":
+                        combattant.dabiflame(cible)
+                        break
+                    else:
+                        print("Choix invalide ! Veuillez entrer 1 ou 2 (seul Dabi peut utiliser 2).")
+
+            # Afficher les PV après chaque attaque
+            print(f"{combattant.nom} a {combattant.pv} PV !")
+            print(f"{cible.nom} a {cible.pv} PV !")
+
+            
+            if all(m.isdead() for m in listem):  
+                print("\nFélicitations, vous avez vaincu tous les monstres !")
+                return
+            if all(p.isdead() for p in listep):
+                print("\nDéfaite... Tous les héros sont morts.")
+                return
+
 
 if __name__ == "__main__":
     intro()
